@@ -1,6 +1,6 @@
 angular.module('toastBasicDemo', ['ngMaterial'])
 
-.controller('AppCtrl', function($scope, $mdToast) {
+.controller('AppCtrl', function($scope, $mdToast, $mdDialog) {
   var last = {
       bottom: false,
       top: true,

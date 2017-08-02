@@ -103,7 +103,7 @@
    * @ngInject @constructor
    */
   function CalendarCtrl($element, $scope, $$mdDateUtil, $mdUtil,
-    $mdConstant, $mdTheming, $$rAF, $attrs, $mdDateLocale) {
+    $mdConstant, $mdTheming, $$rAF, $attrs, $mdDateLocale, $document) {
 
     $mdTheming($element);
 
@@ -127,6 +127,9 @@
 
     /** @final */
     this.$mdDateLocale = $mdDateLocale;
+
+    /** @final */
+    this.$document = $document;
 
     /** @final {Date} */
     this.today = this.dateUtil.createDateAtMidnight();
@@ -213,7 +216,7 @@
 
     var handleKeyElement;
     if ($element.parent().hasClass('md-datepicker-calendar')) {
-      handleKeyElement = angular.element(document.body);
+      handleKeyElement = angular.element($document[0].body);
     } else {
       handleKeyElement = $element;
     }
@@ -341,7 +344,7 @@
       }
 
       var cellId = this.getDateId(date, this.currentView);
-      var cell = document.getElementById(cellId);
+      var cell = this.$document[0].getElementById(cellId);
       if (cell) {
         cell.classList.add(this.FOCUSED_DATE_CLASS);
         cell.focus();
@@ -372,7 +375,7 @@
 
     // Apply the select class to the new selected date if it is set.
     if (date) {
-      var dateCell = document.getElementById(this.getDateId(date, this.currentView));
+      var dateCell = this.$document[0].getElementById(this.getDateId(date, this.currentView));
       if (dateCell) {
         dateCell.classList.add(selectedDateClass);
         dateCell.setAttribute('aria-selected', 'true');

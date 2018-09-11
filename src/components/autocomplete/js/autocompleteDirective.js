@@ -329,7 +329,10 @@ function MdAutocomplete ($$mdSvgRegistry) {
         <md-autocomplete-wrap\
             ng-class="{ \'md-whiteframe-z1\': !floatingLabel, \
                         \'md-menu-showing\': !$mdAutocompleteCtrl.hidden, \
-                        \'md-show-clear-button\': !!clearButton }">\
+                        \'md-show-clear-button\': !!clearButton }"\
+            aria-expanded="{{!$mdAutocompleteCtrl.hidden}}"\
+            role="combobox"\
+            aria-haspopup="true">\
           ' + getInputElement() + '\
           ' + getClearButton() + '\
           <md-progress-linear\
@@ -348,9 +351,11 @@ function MdAutocomplete ($$mdSvgRegistry) {
               role="presentation">\
             <ul class="md-autocomplete-suggestions"\
                 ng-class="::menuClass"\
-                id="ul-{{$mdAutocompleteCtrl.id}}">\
+                id="ul-{{$mdAutocompleteCtrl.id}}"\
+                role="listbox">\
               <li md-virtual-repeat="item in $mdAutocompleteCtrl.matches"\
                   ng-class="{ selected: $index === $mdAutocompleteCtrl.index }"\
+                  ng-attr-id="{{$index === $mdAutocompleteCtrl.index ? \'selected_option\' : undefined}}"\
                   ng-click="$mdAutocompleteCtrl.select($index)"\
                   md-extra-name="$mdAutocompleteCtrl.itemName">\
                   ' + itemTemplate + '\
@@ -397,13 +402,12 @@ function MdAutocomplete ($$mdSvgRegistry) {
                   ng-keydown="$mdAutocompleteCtrl.keydown($event)"\
                   ng-blur="$mdAutocompleteCtrl.blur($event)"\
                   ng-focus="$mdAutocompleteCtrl.focus($event)"\
-                  aria-owns="ul-{{$mdAutocompleteCtrl.id}}"\
+                  aria-controls="ul-{{$mdAutocompleteCtrl.id}}"\
                   aria-label="{{floatingLabel}}"\
                   aria-autocomplete="list"\
-                  role="combobox"\
-                  aria-haspopup="true"\
-                  aria-activedescendant=""\
-                  aria-expanded="{{!$mdAutocompleteCtrl.hidden}}"/>\
+                  role="textbox"\
+                  aria-multiline="false"\
+                  ng-attr-aria-activedescendant="{{$mdAutocompleteCtrl.index >= 0 ? \'selected_option\' : undefined}}">\
               <div md-autocomplete-parent-scope md-autocomplete-replace>' + leftover + '</div>\
             </md-input-container>';
         } else {
@@ -425,13 +429,12 @@ function MdAutocomplete ($$mdSvgRegistry) {
                 ng-blur="$mdAutocompleteCtrl.blur($event)"\
                 ng-focus="$mdAutocompleteCtrl.focus($event)"\
                 placeholder="{{placeholder}}"\
-                aria-owns="ul-{{$mdAutocompleteCtrl.id}}"\
+                aria-controls="ul-{{$mdAutocompleteCtrl.id}}"\
                 aria-label="{{placeholder}}"\
                 aria-autocomplete="list"\
-                role="combobox"\
-                aria-haspopup="true"\
-                aria-activedescendant=""\
-                aria-expanded="{{!$mdAutocompleteCtrl.hidden}}"/>';
+                role="textbox"\
+                aria-multiline="false"\
+                ng-attr-aria-activedescendant="{{$mdAutocompleteCtrl.index >= 0 ? \'selected_option\' : undefined}}">';
         }
       }
 

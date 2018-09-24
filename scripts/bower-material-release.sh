@@ -9,14 +9,14 @@ function run {
 
   echo "-- Building release..."
   rm -rf dist
-  gulp build --release --version=$VERSION
-  gulp build-all-modules --release --mode=default --version=$VERSION
-  gulp build-all-modules --release --mode=closure --version=$VERSION
+  npx gulp build --release --version=$VERSION
+  npx gulp build-all-modules --release --mode=default --version=$VERSION
+  npx gulp build-all-modules --release --mode=closure --version=$VERSION
   rm -rf dist/demos
 
   echo "-- Cloning bower-material..."
   rm -rf bower-material
-  git clone https://github.com/angular/bower-material \
+  git clone https://github.com/nobitagit/bower-material \
     bower-material --depth=2
 
   echo "-- Copying in build files..."
